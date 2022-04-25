@@ -134,8 +134,36 @@ export  function Creationform() {
     five:"",
     six:"",
     seven:"",
-    eight:""
+    eight:"",
+    user:"62668cbf0f6dcf6729712f51",
+    url:""
  })
+
+
+// api function to add the details to data base,
+
+
+function apipost()
+{
+
+fetch("http://localhost:1080/service",{
+method:"POST",
+headers:{
+  "Content-Type":"application/json"
+},
+body:JSON.stringify(Object)
+
+
+})
+.then((res)=>res.json())
+.then((res)=>{console.log(res)})
+.catch((err)=>{console.log(err)})
+}
+
+
+
+
+
     
 // I am going to write the functions to add changes
 
@@ -212,6 +240,12 @@ function eight(e)
     useobject({...Object,eight:e.target.value})
 
 }
+function url(e)
+{
+  useobject({...Object,url:e.target.value})
+
+}
+
 // this is thge end of the functions
 console.log(Object)
 
@@ -482,6 +516,22 @@ console.log(Object)
         </FormControl>
 
         <FormControl fullWidth sx={{ m: 2 }} variant="standard">
+          <InputLabel htmlFor="standard-adornment-amount">Image url of the pethouse</InputLabel>
+          <Input
+            id="standard-adornment-amount"
+            // onChange={('amount')}
+            placeholder='URL'
+            onChange={(e)=>{url(e)}}
+
+            startAdornment={<InputAdornment position="start"></InputAdornment>}
+          />
+        </FormControl>
+
+
+
+
+
+        <FormControl fullWidth sx={{ m: 2 }} variant="standard">
           <InputLabel htmlFor="standard-adornment-amount">My outdoor area size.</InputLabel>
           <Input
                       onChange={(e)=>{seven(e)}}
@@ -515,7 +565,7 @@ console.log(Object)
 
 </div>
 <br />
-<Button variant="contained" size="large">Submit It</Button>
+<Button variant="contained" size="large" onClick={apipost}>Submit It</Button>
 
 </div>
 
