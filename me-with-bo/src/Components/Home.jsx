@@ -11,6 +11,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useNavigate } from 'react-router';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -40,7 +41,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 const [data,setdata]=React.useState([])
-
+const navigate=useNavigate()
 
 
 React.useEffect(getservices,[])
@@ -54,6 +55,11 @@ fetch("http://localhost:1080/service")
 .then((res)=>{setdata([...res])})
 .catch((err)=>{console.log(err)})
 
+}
+
+function gotofulldetail(e)
+{
+    navigate(`/listing/${e._id}`)
 }
 
 
@@ -77,7 +83,7 @@ fetch("http://localhost:1080/service")
         </TableHead>
         <TableBody>
          
-            {data.map((e,i)=><StyledTableRow >
+            {data.map((e,i)=><StyledTableRow  onClick={()=>{gotofulldetail(e)}}>
               <StyledTableCell align="right" component="th" scope="row">{i+1}</StyledTableCell>
               <StyledTableCell align="right" component="th" scope="row">{e.firmname}</StyledTableCell>
               <StyledTableCell align="right" component="th" scope="row">{e.city}</StyledTableCell>
