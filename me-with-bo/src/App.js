@@ -6,6 +6,7 @@ import {Login} from './Components/Loginform';
 import {Register} from './Components/Registerform';
 import {Routes,Route} from 'react-router-dom';
 import {Home} from './Components/Home'
+import {Fulldata} from './Components/Fulldata'
 function App() {
   return (
 <div>
@@ -15,6 +16,7 @@ function App() {
 <Route path='/create' element={<Creationform/>} />
 <Route path='/login' element={ <Login/>} />
 <Route path='/Register' element={ <Register/>} />
+<Route path='/listing/:id' element={ <Fulldata/>} />
 
      
      
