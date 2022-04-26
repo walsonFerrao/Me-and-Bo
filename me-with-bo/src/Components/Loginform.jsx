@@ -14,6 +14,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
+import {useNavigate as useNavigation} from 'react-router-dom'
 
 
 
@@ -38,11 +39,16 @@ export const Login=()=>{
     const [values, setValues] = React.useState({
         amount: '',
         password: '',
+        email:'',
         weight: '',
         weightRange: '',
         showPassword: false,
       });
-    
+ const navigate=useNavigation()
+
+
+    console.log(values)
+
       const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
       };
@@ -58,6 +64,30 @@ export const Login=()=>{
         event.preventDefault();
       };
     
+     function storeemail(e)
+     {
+
+       setValues({...values,email:e.target.value})
+      
+
+
+     }
+
+function login()
+{
+  console.log("jjj")
+
+  fetch('http://localhost:1080/login',{ 
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({email:values.email,password:values.password})
+  })
+.then((res)=>res.json())
+.then((res)=>{console.log(res);localStorage.setItem("userdetails",JSON.stringify(res));!res.error?navigate("/"):navigate("/login")})
+.catch((err)=>{console.log(err)})
+}
 
 
 
@@ -71,7 +101,9 @@ return (
         <InputLabel htmlFor="input-with-icon-adornment">
          Email id
         </InputLabel>
+      
         <Input
+        onChange={(e)=>{storeemail(e)}}
           id="input-with-icon-adornment"
           startAdornment={
             <InputAdornment position="start">
@@ -106,11 +138,11 @@ return (
 
 <br />
 <br />
-        <Button variant="contained">Login</Button>
+        <Button onClick={login} variant="contained">Login</Button>
 
 <br />
 <br />
-<h3>Dont have an account <a href="">Register</a></h3>
+<h3>Dont have an account <a href="/register">Register</a></h3>
 
 
 

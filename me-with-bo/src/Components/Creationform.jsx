@@ -7,6 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
+import { useNavigate } from 'react-router';
 
 
 const pets = [
@@ -139,12 +140,13 @@ export  function Creationform() {
     url:""
  })
 
-
+const navigate=useNavigate()
 // api function to add the details to data base,
 
 
 function apipost()
 {
+  Object.user=JSON.parse(localStorage.getItem("userdetails")).id
 
 fetch("http://localhost:1080/service",{
 method:"POST",
@@ -156,7 +158,7 @@ body:JSON.stringify(Object)
 
 })
 .then((res)=>res.json())
-.then((res)=>{console.log(res)})
+.then((res)=>{console.log(res);navigate("/create")})
 .catch((err)=>{console.log(err)})
 }
 
@@ -250,7 +252,7 @@ function url(e)
 console.log(Object)
 
   return (
-   <div style={{width:"80%",paddingTop:"10px",border:"1px solid black",margin:"auto",marginTop:"30px",backgroundColor:'#f4efef',paddingBottom:"25px",marginBottom:"25px"}}>
+   <div style={{width:"80%",paddingTop:"10px",border:"1px solid black",margin:"auto",marginTop:"30px",backgroundColor:'#f4efef',paddingBottom:"25px",marginBottom:"25px",textAlign:"center"}}>
 
      <h1>Fill the form to let the customers know about your service</h1>
 <br />
