@@ -13,6 +13,27 @@ export const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export  function Fulldata() {
+
+const {id} = useParams()
+
+// console.log(id)
+
+  const [data,setdata]=React.useState({})
+    React.useEffect(getservices,[])
+
+
+    function getservices()
+    {
+    
+    fetch(`http://localhost:1080/service/${id}`)
+    .then((res)=>res.json())
+    .then((res)=>{console.log(res); setdata({...res})})
+    .catch((err)=>{console.log(err)})
+    
+    }
+
+
+
   return (
       <div style={{marginTop:"80px"}}>
     <Box sx={{ flexGrow: 1 }}>
