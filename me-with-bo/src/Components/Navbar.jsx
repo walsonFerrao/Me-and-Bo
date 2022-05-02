@@ -101,6 +101,14 @@ function gotouserprofile()
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+   function logout()
+  {
+
+    localStorage.removeItem("userdetails")
+
+  }
+
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -120,7 +128,7 @@ function gotouserprofile()
     >
 
       <MenuItem  onClick={(e)=>{gotouserprofile();handleMenuClose()}}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={(e)=>{logout();handleMenuClose()}} >Logout</MenuItem>
     </Menu>
   );
 

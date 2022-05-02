@@ -68,6 +68,9 @@ function gotofulldetail(e)
 
 
   return (
+   
+
+
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
@@ -117,13 +120,20 @@ const userdetail=JSON.parse(localStorage.getItem("userdetails"))
 
 
 return (
+  
 
-<div style={{marginTop:"50px"}}>
-{userdetail?.usertype=="user"?<button style={{width:"150px",height:"50px",fontSize:"20px",float:"right",marginBottom:"30px",backgroundColor:"green",color:"white",borderRadius:"10px"}}>helllo user</button>:<p>HelloAdmin</p> }
+  <>
+  <div>
+    <button>priceHighsort</button>
+    <button>priceLowsort</button>
+    <div style={{marginTop:"50px"}} >
+{userdetail?.usertype=="user"?<button style={{width:"150px",height:"50px",fontSize:"20px",float:"right",marginBottom:"30px",backgroundColor:"green",color:"white",borderRadius:"10px"}}>helllo user</button>:<button style={{width:"150px",height:"50px",fontSize:"20px",float:"right",marginBottom:"30px",backgroundColor:"green",color:"white",borderRadius:"10px"}}>HelloAdmin</button> }
 
 <Tablesetup/>
 </div>
+  </div>
 
+</>
 
 
 )
