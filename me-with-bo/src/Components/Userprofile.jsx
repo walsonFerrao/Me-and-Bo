@@ -53,10 +53,10 @@ function  deletedata(id)
 
 }
 
-function gotoeditpage()
+function gotoeditpage(id)
 {
 
-    navigate("/create")
+    navigate(`/user/edit/${id}`)
 
     
 }
@@ -80,7 +80,7 @@ return(
 
 {service.map((e)=><Containerdiv>
 <div style={{float:"right"}}>
-<button>Edit</button>
+<button onClick={()=>{gotoeditpage(e._id)}}>Edit</button>
 <button onClick={()=>{deletedata(e._id)}}>Delete</button>
 
 </div>

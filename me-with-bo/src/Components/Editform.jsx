@@ -7,7 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 
 const pets = [
@@ -82,9 +82,14 @@ const pets = [
 
 
 
-export  function Creationform() {
+export  function Editform() {
 
     const [pet, setpet] = React.useState('dogs');
+
+
+
+
+    
 
     const handleChange = (event) => {
       setpet(event.target.value);
@@ -92,7 +97,7 @@ export  function Creationform() {
 
     const [initialsize, setinitialsize] = React.useState(1);
     const [finalsize, setfinalsize] = React.useState(1);
-const userdetail=localStorage.getItem("userdetails")
+
 
     const handlestartsize = (event) => {
         setinitialsize(event.target.value);
@@ -115,7 +120,7 @@ const userdetail=localStorage.getItem("userdetails")
       useobject({...Object,restrictions:Object.restrictions.filter((a,b)=>b!==i)})
   }
 
-
+  const {id}=useParams()
 
  const [Object,useobject]=React.useState({
      firmname:"",
@@ -136,9 +141,16 @@ const userdetail=localStorage.getItem("userdetails")
     six:"",
     seven:"",
     eight:"",
-    user:userdetail.id,
+    user:"62668cbf0f6dcf6729712f51",
     url:""
  })
+ React.useEffect(function()
+  {
+   fetch(`http://localhost:1080/service/${id}`)
+   .then((res)=>res.json())
+   .then((res)=>{useobject({...res})})
+   .catch((err)=>{console.log(err)})
+  },[])
 
 const navigate=useNavigate()
 // api function to add the details to data base,
@@ -148,8 +160,8 @@ function apipost()
 {
   Object.user=JSON.parse(localStorage.getItem("userdetails")).id
 
-fetch("http://localhost:1080/service",{
-method:"POST",
+fetch(`http://localhost:1080/service/${id}`,{
+method:"PUT",
 headers:{
   "Content-Type":"application/json"
 },
@@ -158,7 +170,7 @@ body:JSON.stringify(Object)
 
 })
 .then((res)=>res.json())
-.then((res)=>{console.log(res);navigate("/create")})
+.then((res)=>{console.log(res,"this is res");navigate(`/`)})
 .catch((err)=>{console.log(err)})
 }
 
@@ -264,6 +276,7 @@ console.log(Object)
           multiline
           maxRows={4}
           onChange={(e)=>{firmname(e)}}
+          defaultValue={Object.firmname}
         />
 
 <TextField
@@ -271,6 +284,8 @@ console.log(Object)
           label="about pethome"
           placeholder="about"
           onChange={(e)=>{about(e)}}
+          defaultValue={Object.about}
+
           multiline
         />
 
@@ -297,6 +312,8 @@ console.log(Object)
                     onChange={(e)=>{services(e)}}
 
           variant="outlined"
+          defaultValue={Object.services}
+
         />
 </div>
 
@@ -307,6 +324,8 @@ console.log(Object)
           label="cost per day"
           placeholder="eg:1000rs"
           onChange={(e)=>{cost(e)}}
+          defaultValue={Object.cost}
+          multiline
 
           variant="outlined"
         />
@@ -319,6 +338,8 @@ console.log(Object)
           type="Number"
           variant="outlined"
           onChange={(e)=>{capacity(e)}}
+          defaultValue={Object.capacity}
+          multiline
 
           placeholder='Number, eg:5,50'
         />
@@ -339,8 +360,10 @@ console.log(Object)
           placeholder="eg:mangalore"
           multiline
           onChange={(e)=>{city(e)}}
-
+          defaultValue={Object.city}
+         
           variant="outlined"
+          
         />
 </div>
 
@@ -352,6 +375,7 @@ console.log(Object)
           variant="outlined"
           multiline
           onChange={(e)=>{address(e)}}
+          defaultValue={Object.address}
 
         />
 </div>
@@ -364,6 +388,7 @@ console.log(Object)
           variant="outlined"
           type="number"
           onChange={(e)=>{phonenumber(e)}}
+          defaultValue={Object.phonenumber}
 
           multiline
         />
@@ -399,6 +424,7 @@ console.log(Object)
     value={initialsize}
     onChange={handlestartsize}
     helperText="please select size"
+
   >
     {Sizes.map((option) => (
       <MenuItem key={option.value} value={option.value}>
@@ -454,6 +480,9 @@ console.log(Object)
             placeholder='eg: Pets will never be left unattended'
             onChange={(e)=>{one(e)}}
             startAdornment={<InputAdornment position="start"></InputAdornment>}
+            defaultValue={Object.one}
+            multiline
+
           />
         </FormControl>
 
@@ -464,6 +493,8 @@ console.log(Object)
             id="standard-adornment-amount"
             onChange={(e)=>{two(e)}}
             placeholder='eg: Free roam of the house'
+            defaultValue={Object.two}
+multiline
             startAdornment={<InputAdornment position="start"></InputAdornment>}
           />
         </FormControl>
@@ -475,7 +506,8 @@ console.log(Object)
             // onChange={('amount')}
             placeholder='eg: Wherever they want '
             onChange={(e)=>{three(e)}}
-
+            defaultValue={Object.three}
+           multiline
             startAdornment={<InputAdornment position="start"></InputAdornment>}
           />
         </FormControl>
@@ -486,8 +518,10 @@ console.log(Object)
             id="standard-adornment-amount"
             // onChange={('amount')}
             onChange={(e)=>{four(e)}}
+            defaultValue={Object.capacity}
 
             placeholder='eg: Full access outside'
+            multiline
             startAdornment={<InputAdornment position="start"></InputAdornment>}
           />
         </FormControl>
@@ -499,7 +533,8 @@ console.log(Object)
             id="standard-adornment-amount"
             // onChange={('amount')}
             onChange={(e)=>{five(e)}}
-
+            defaultValue={Object.capacity}
+            multiline
             placeholder='eg: 25'
             startAdornment={<InputAdornment position="start"></InputAdornment>}
           />
@@ -512,7 +547,8 @@ console.log(Object)
             // onChange={('amount')}
             placeholder='Home'
             onChange={(e)=>{six(e)}}
-
+            defaultValue={Object.six}
+             multiline
             startAdornment={<InputAdornment position="start"></InputAdornment>}
           />
         </FormControl>
@@ -524,7 +560,8 @@ console.log(Object)
             // onChange={('amount')}
             placeholder='URL'
             onChange={(e)=>{url(e)}}
-
+            defaultValue={Object.url}
+            multiline
             startAdornment={<InputAdornment position="start"></InputAdornment>}
           />
         </FormControl>
@@ -541,6 +578,8 @@ console.log(Object)
             id="standard-adornment-amount"
             // onChange={('amount')}
             placeholder='10yards'
+            defaultValue={Object.seven}
+           multiline
             startAdornment={<InputAdornment position="start"></InputAdornment>}
           />
                   </FormControl>
@@ -551,9 +590,11 @@ console.log(Object)
           <Input
             id="standard-adornment-amount"
             onChange={(e)=>{eight(e)}}
+            defaultValue={Object.capacity}
 
             // onChange={('amount')}
             placeholder='Yes/No/others'
+            multiline
             startAdornment={<InputAdornment position="start"></InputAdornment>}
           />
 
