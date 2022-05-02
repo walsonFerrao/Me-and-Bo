@@ -110,13 +110,15 @@ function gotofulldetail(e)
 
 export const Home=()=>{
 
+const userdetail=JSON.parse(localStorage.getItem("userdetails"))
 
 
 return (
 
-<div style={{marginTop:"60px"}}>
-<Tablesetup/>
+<div style={{marginTop:"50px"}}>
+{userdetail?.usertype=="user"?<button style={{width:"150px",height:"50px",fontSize:"20px",float:"right",marginBottom:"30px",backgroundColor:"green",color:"white",borderRadius:"10px"}}>helllo user</button>:<p>HelloAdmin</p> }
 
+<Tablesetup/>
 </div>
 
 

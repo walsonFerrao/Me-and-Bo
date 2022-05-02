@@ -62,6 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const userdetails=JSON.parse(localStorage.getItem("userdetails"))
 const navigate=useNavigate()
 function navigatetoformpage()
 {
@@ -70,7 +71,13 @@ function navigatetoformpage()
 
 
 }
+function gotouserprofile()
+{
+  navigate(`/user/${userdetails.id}`)
 
+
+
+}
 
 
 
@@ -112,7 +119,7 @@ function navigatetoformpage()
       onClose={handleMenuClose}
     >
 
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem  onClick={(e)=>{gotouserprofile();handleMenuClose()}}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );

@@ -7,6 +7,7 @@ import {Register} from './Components/Registerform';
 import {Routes,Route} from 'react-router-dom';
 import {Home} from './Components/Home'
 import {Fulldata} from './Components/Fulldata'
+import {Userpage} from './Components/Userprofile';
 function App() {
   return (
 <div>
@@ -17,6 +18,7 @@ function App() {
 <Route path='/login' element={ <Login/>} />
 <Route path='/Register' element={ <Register/>} />
 <Route path='/listing/:id' element={ <Fulldata/>} />
+<Route path='/user/:id' element={ <Userpage/>} />
 
      
      
