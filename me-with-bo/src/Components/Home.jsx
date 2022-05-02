@@ -43,7 +43,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const [data,setdata]=React.useState([])
 const navigate=useNavigate()
 
-
+console.log(data)
 React.useEffect(getservices,[])
 
 
