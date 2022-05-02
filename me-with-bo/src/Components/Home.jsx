@@ -12,6 +12,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import {getdata} from '../Redux/services/action';
+import {useSelector} from 'react-redux'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,8 +42,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
     function Tablesetup() {
 
-
-const [data,setdata]=React.useState([])
+const dispatch=useDispatch()
+// const [data,setdata]=React.useState([])
+const data= useSelector((store)=>store.services)
 const navigate=useNavigate()
 
 console.log(data)
@@ -50,10 +54,9 @@ React.useEffect(getservices,[])
 function getservices()
 {
 
-fetch("http://localhost:1080/service")
-.then((res)=>res.json())
-.then((res)=>{setdata([...res])})
-.catch((err)=>{console.log(err)})
+  dispatch(getdata())
+
+
 
 }
 
