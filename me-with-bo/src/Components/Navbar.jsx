@@ -63,6 +63,8 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const userdetails=JSON.parse(localStorage.getItem("userdetails"))
+
+  const ID=JSON.parse(localStorage.getItem("userdetails")).id
 const navigate=useNavigate()
 function navigatetoformpage()
 {
@@ -71,6 +73,10 @@ function navigatetoformpage()
 
 
 }
+
+
+
+
 function gotouserprofile()
 {
   navigate(`/user/${userdetails.id}`)
@@ -105,6 +111,12 @@ function gotouserprofile()
   {
 
     localStorage.removeItem("userdetails")
+    navigate("/login")
+
+  }
+  function taketoadmin()
+  {
+    navigate(`/user/admin/${ID}`)
 
   }
 
@@ -204,6 +216,7 @@ function gotouserprofile()
             variant="h6"
             noWrap
             component="div"
+            onClick={()=>{navigate("/")}}
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             ME&BO
@@ -218,6 +231,12 @@ function gotouserprofile()
             />
           </Search>
           
+
+          {userdetails?.usertype=="user"?<button style={{width:"15%",height:"40px",position:'absolute',right:"22%",fontSize:"20px",border:"none",backgroundColor:"green",color:"white",borderRadius:"10px"}}>helllo user</button>:<button style={{width:"15%",height:"40px",position:'absolute',right:"22%",fontSize:"20px",border:"none",backgroundColor:"green",color:"white",borderRadius:"10px"}} onClick={taketoadmin}>AdminDashboard</button> }
+
+
+
+
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Button variant='filled' style={{backgroundColor:"blue",fontFamily:"sans-serif"}} onClick={navigatetoformpage}>CreateService</Button>

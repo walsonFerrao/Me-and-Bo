@@ -1,7 +1,6 @@
 
 
 
-
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -14,6 +13,8 @@ import Paper from '@mui/material/Paper';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import {getdata} from '../Redux/services/action';
+import {getdatawithparams} from '../Redux/services/action';
+
 import {useSelector} from 'react-redux'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -49,6 +50,10 @@ const navigate=useNavigate()
 
 console.log(data)
 React.useEffect(getservices,[])
+
+
+
+
 
 
 function getservices()
@@ -113,10 +118,27 @@ function gotofulldetail(e)
 
 
 
-
 export const Home=()=>{
 
-const userdetail=JSON.parse(localStorage.getItem("userdetails"))
+  const [page,setpage]=React.useState(0)
+
+  const dispacth=useDispatch()
+
+function sendparams(param) {
+  
+  dispacth(getdatawithparams(param,page))
+
+
+}
+
+React.useEffect(()=>{
+
+  dispacth(getdatawithparams("",page))
+
+
+},[page])
+
+
 
 
 return (
@@ -124,15 +146,30 @@ return (
 
   <>
   <div>
-    <button>priceHighsort</button>
-    <button>priceLowsort</button>
-    <div style={{marginTop:"50px"}} >
-{userdetail?.usertype=="user"?<button style={{width:"150px",height:"50px",fontSize:"20px",float:"right",marginBottom:"30px",backgroundColor:"green",color:"white",borderRadius:"10px"}}>helllo user</button>:<button style={{width:"150px",height:"50px",fontSize:"20px",float:"right",marginBottom:"30px",backgroundColor:"green",color:"white",borderRadius:"10px"}}>HelloAdmin</button> }
+    <div style={{backgroundColor:"white",marginTop:"25px",marginLeft:"25px"}}>
 
-<Tablesetup/>
+<select style={{height:"35px"}} name="" id=""  onChange={(e)=>{sendparams(e.target.value)}}>
+  <option value="">SortTheList</option>
+  <option value="pa">SortPriceByAscending</option>
+  <option value="pd">SortPriceByDescending</option>
+  <option value="la">SortByLocation</option>
+
+</select>  
+
+
+
+    </div>
+    <div style={{marginTop:"30px"}} >
+<Tablesetup sendparams={sendparams}/>
+
+</div>
+
+<div style={{display:'flex',justifyContent:"space-between",width:"50%",margin:"auto",marginTop:"30px"}}>
+  <button style={{backgroundColor:"grey",height:"30px",width:"60px",borderRadius:"5px"}} onClick={()=>{setpage(page-1)}}>prev</button>
+  <button style={{backgroundColor:"grey",height:"30px",width:"60px",borderRadius:"5px"}}>{page+1}</button>
+  <button style={{backgroundColor:"grey",height:"30px",width:"60px",borderRadius:"5px"}} onClick={()=>{setpage(page+1)}}>next</button>
 </div>
   </div>
-
 </>
 
 

@@ -5,5 +5,6 @@ import { reducer } from "./services/reducer";
 
 
 
+
 export const store=createStore(reducer,applyMiddleware(thunk))
 
