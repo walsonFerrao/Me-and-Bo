@@ -11,7 +11,8 @@ admins can delete posts approve posts.
 
 
 if you want to login as an admin then use this email and  password
-ferroking@gmail.com
-ferroking@123
+email:ferroking@gmail.com
+<br/>
+password:ferroking@123
 
 
